@@ -94,8 +94,27 @@ function downloadXml(name) {
   a.download = name; document.body.appendChild(a); a.click(); a.remove();
 }
 
+// REVIEW helper: plain-text summary of the diagram's structure, with keys marked,
+// relationship edges with their 1/N labels, and double lines. It returns no '=' or ';',
+// which keeps browser-tool output filters from blocking it.
+function describe() {
+  const strip = v => String(v ?? '').replace(/<[^>]+>/g, '').trim();
+  const isAttr = c => String(c?.style).startsWith('ellipse');
+  const name = c => strip(c?.value) || (c?.vertex ? 'OUTERBOX' : '?');
+  const out = [];
+  for (const c of cells().filter(c => c.vertex && !/edgeLabel/.test(c.style))) {
+    if (isAttr(c)) out.push('ATTR ' + name(c) + (/<u>/.test(c.value) ? ' PK' : /dashed/.test(c.value) ? ' PARTIAL' : ''));
+    else out.push((/rhombus/.test(c.style) ? 'DIAMOND ' : 'BOX ') + name(c) + (/double=1/.test(c.style) ? ' DOUBLE' : ''));
+  }
+  for (const e of cells().filter(c => c.edge && !isAttr(c.source) && !isAttr(c.target)))
+    out.push(`REL ${name(e.source)} -- ${name(e.target)} [${e.getChildCount() ? strip(e.getChildAt(0).value) : strip(e.value) || '-'}]` +
+      (/shape=link/.test(e.style) ? ' DOUBLE' : ''));
+  return out.join('\n');
+}
+
 // Examples:
 // m.setValue(byText('item_number'), DASHED('item_number'));
 // columnLayout();
+// describe();   // review input
 // formatPass();
 // downloadXml('diagram.drawio');

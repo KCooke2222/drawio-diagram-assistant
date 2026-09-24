@@ -111,6 +111,9 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - Leave about 200px between clusters for relationship diamonds. The generator's grid cell is 420x300.
 - Google Drive connectors (where available) can't overwrite a file's contents, only rename, move or copy it. Edit live instead.
 
+- For review, read the structure with `describe()` instead of screenshots. A weak entity's outer box shows as `OUTERBOX`, and relationship lines attach to it, not to the inner named box.
+- The graph-hook click has to land on empty canvas. In the full UI the left sidebar covers x < ~220, so take a screenshot first and click an empty spot beside the diagram.
+
 ### Claude in Chrome specifics
 - Tool output hides raw XML **and** base64 ("BLOCKED"). JS should return short plain text (counts, OK/CHANGED), never file contents.
 - Chrome allows one automatic download per page, then silently blocks more until the user allows "multiple downloads" for app.diagrams.net (address bar icon).
