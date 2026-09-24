@@ -31,6 +31,7 @@ This is the approved look for spacing and style. Make every diagram you create o
 | Weak entity outer box | 134x69 (inner + 8 on each side) | `whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;strokeWidth=1;` |
 | Weak entity inner box | 118x53 | `whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;fontStyle=1;align=center;` |
 | Relationship diamond | 80x80 | `rhombus;whiteSpace=wrap;html=1;shapeInside=1;` |
+| Identifying relationship (double diamond) | 80x80 | `rhombus;double=1;whiteSpace=wrap;html=1;shapeInside=1;` (verified: renders an inner diamond) |
 | Attribute | 38 tall; one width per entity (about 120–130) | `ellipse;whiteSpace=wrap;html=1;shapeInside=1;` |
 | Every line | n/a | `edgeStyle=none;html=1;endArrow=none;startArrow=none;` |
 | Total participation line | n/a | the same, plus `shape=link;` (draws a double line) |
@@ -112,6 +113,7 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - Google Drive connectors (where available) can't overwrite a file's contents, only rename, move or copy it. Edit live instead.
 
 - For review, read the structure with `describe()` instead of screenshots. A weak entity's outer box shows as `OUTERBOX`, and relationship lines attach to it, not to the inner named box.
+- After the graph-hook click, press Escape. The click can select a shape, and a later keypress would then edit it.
 - The graph-hook click has to land on empty canvas. In the full UI the left sidebar covers x < ~220, so take a screenshot first and click an empty spot beside the diagram.
 
 ### Claude in Chrome specifics
