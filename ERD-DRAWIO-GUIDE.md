@@ -116,6 +116,11 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - After the graph-hook click, press Escape. The click can select a shape, and a later keypress would then edit it.
 - The graph-hook click has to land on empty canvas. In the full UI the left sidebar covers x < ~220, so take a screenshot first and click an empty spot beside the diagram.
 
+- **EditorUi handle** (pages, actions): wrap `EditorUi.prototype` methods (`updateActionStates`, `getCurrentFile`, `isDiagramEmpty`, `updateDocumentTitle`), fire a mousemove on the canvas, and keep the instance whose `editor.graph` is your graph. Cache it as `window.__ui`.
+- Pages: `ui.pages`, `ui.currentPage.getName()`. The same graph object shows whichever page is current, so check the current page before editing. Rename silently with `g.model.execute(new RenamePage(ui, page, 'Name'))`. `ui.renamePage()` opens a dialog instead.
+- Zoom to fit: `ui.actions.get('fitWindow').funct()`.
+- Adding clusters live: `g.insertVertex(parent, null, label, x, y, w, h, style)` and `g.insertEdge(parent, null, '', src, dst, style)` inside one `beginUpdate`/`endUpdate`, so it's a single undo step.
+
 ### Chrome DevTools MCP specifics (preferred when available)
 - It attaches to the user's real browser, so it's already logged in to Drive. Use `list_pages` to find the draw.io tab, then pass its `pageId` to `evaluate_script`.
 - Cache the graph handle as `window.__g`. It survives between calls, so you hook it once per page load.
