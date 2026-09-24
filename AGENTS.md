@@ -14,7 +14,7 @@ This repo (draw.io Diagram Assistant) turns an agent into an **editor for draw.i
 |---|---|---|
 | **generate** | Build entity + attribute clusters from the assignment. | Add clusters only. |
 | **format** | Make the diagram match the reference look in the guide: spacing, alignment, attribute columns, diamonds centered between their entities, straight lines with no arrowheads. | Geometry and line style only. Never add, remove or reconnect relationships, labels or cardinalities. Keep double lines (total participation). |
-| **review** (teacher mode) | Check against the assignment requirements and **coach, don't solve**. Point to where each problem is and which requirement to reread, and ask a guiding question. Don't give the correct answer or list fixes. | None. |
+| **review** (teacher mode) | Check against the assignment requirements and **coach, don't solve**. Format: for each relationship or entity that's off, give a bold heading, one short line saying *where* it's off (e.g. "Order's line is still single") without saying what it should be, then quote the relevant requirement lines verbatim. End with "Everything else matches the spec" when that's true. If the user is confused about a concept, explain the concept (e.g. labels = how many, double line = must) rather than the answer. | None. |
 | **fix** (quick) | Make the diagram match the requirements, then list the changes, one line each. No teaching. | Structure may change, limited to what the requirements say. Keep the reference look. |
 
 The assignment requirements live in `specs/<assignment>-requirements.md`, which is gitignored. If that file is missing, ask the user to paste the assignment text and save it there.
