@@ -116,6 +116,13 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - After the graph-hook click, press Escape. The click can select a shape, and a later keypress would then edit it.
 - The graph-hook click has to land on empty canvas. In the full UI the left sidebar covers x < ~220, so take a screenshot first and click an empty spot beside the diagram.
 
+### Chrome DevTools MCP specifics (preferred when available)
+- It attaches to the user's real browser, so it's already logged in to Drive. Use `list_pages` to find the draw.io tab, then pass its `pageId` to `evaluate_script`.
+- Cache the graph handle as `window.__g`. It survives between calls, so you hook it once per page load.
+- In the full UI, synthetic `mousemove`/`pointermove` events on `.geDiagramContainer` are enough to catch the graph. No real click is needed.
+- Output isn't filtered: XML and base64 come back as-is, so no download workaround is needed.
+- Pass `waitForStableDom: false` for read-only scripts.
+
 ### Claude in Chrome specifics
 - Tool output hides raw XML **and** base64 ("BLOCKED"). JS should return short plain text (counts, OK/CHANGED), never file contents.
 - Chrome allows one automatic download per page, then silently blocks more until the user allows "multiple downloads" for app.diagrams.net (address bar icon).
