@@ -43,6 +43,20 @@ Layout:
 - Attribute columns sit on the **outer side** of the entity, away from the hub (entities left of the hub get their column on the left). The gap is 40px, the row pitch 44px, the key attribute comes first, and the column is centered on the entity.
 - Clusters are about 380px apart horizontally and about 320px vertically, which leaves room for diamonds and labels.
 
+## EER specialization (verified)
+
+- Circle: `ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;`, 38x38, labeled `o` (overlap) or `d` (disjoint). Center it under the superclass, halfway down to the subclasses.
+- Superclass to circle: a double line (`shape=link;`) for total specialization, a single line for partial.
+- Circle to each subclass: a straight line with a **∪ subset symbol** as a child label of the edge, so it moves with the line:
+  ```js
+  const rot = Math.round(Math.atan2(circleCy - subCy, circleCx - subCx) * 180 / Math.PI + 90); // opening faces the circle
+  const s = new mxCell('∪', new mxGeometry(0, 0, 20, 20), `text;html=1;align=center;verticalAlign=middle;fontSize=18;resizable=0;labelBackgroundColor=none;rotation=${rot};`);
+  s.vertex = true; s.connectable = false; s.geometry.relative = true; s.geometry.offset = new mxPoint(-10, -10);
+  m.add(edge, s);
+  ```
+  Straighten the edge first (`edgeStyle=none`). The rotation assumes a straight line, so recompute it if you move the circle or a subclass.
+- A superclass with a subclass tree below it can take its attributes in a **row above** it instead of a column: key first, 12px gaps, the row centered on the entity, 70px above it.
+
 ## XML recipe
 
 Skeleton:
