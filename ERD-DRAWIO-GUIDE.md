@@ -58,6 +58,15 @@ Layout:
 - **Even layout for an EER tree:** three columns 320px apart (left subclass chain, center superclass/hub chain, right subclass chain), with rows about 340px apart. Move each entity by its center, taking its outer box, inner box and attributes along, then re-run the column, diamond and line passes and re-aim the ∪ symbols. This worked well for the approved layout.
 - A superclass with a subclass tree below it can take its attributes in a **row above** it instead of a column: key first, 12px gaps, the row centered on the entity, 70px above it.
 
+## Layout tricks (verified)
+
+- **Two diamonds between the same pair of entities** (e.g. Posts and Likes between User and Post): put them on either side of the midpoint, offset about ±70px perpendicular to the line between the entities, so they don't stack.
+- **Recursive relationship:** place the diamond about 120px above the entity. Give the two lines distinct ends: `exitX=0.2;exitY=0;exitPerimeter=0` → the diamond's left corner (`entryX=0;entryY=0.5`), and `exitX=0.8` → the right corner (`entryX=1`). Put the relationship attribute above the diamond.
+- **Relationship attributes** attach to the diamond. Place them on a side with no lines.
+- **Dangling lines** (an endpoint dropped near, not on, a shape) have `source`/`target` null and a `sourcePoint`/`targetPoint`. Attach them with `m.setTerminal(edge, shape, isSource)` before formatting, or they'll float.
+- A diamond whose label is longer than about 9 characters: widen it to 110.
+- When a pass also adds attribute edges, compare signatures of the relationship edges only, since the new edges change the full edge signature.
+
 ## Relational schema tables (verified)
 
 For ER-to-relational mapping, draw one single-row draw.io table per relation, with a bold title above it:
