@@ -58,6 +58,16 @@ Layout:
 - **Even layout for an EER tree:** three columns 320px apart (left subclass chain, center superclass/hub chain, right subclass chain), with rows about 340px apart. Move each entity by its center, taking its outer box, inner box and attributes along, then re-run the column, diamond and line passes and re-aim the ∪ symbols. This worked well for the approved layout.
 - A superclass with a subclass tree below it can take its attributes in a **row above** it instead of a column: key first, 12px gaps, the row centered on the entity, 70px above it.
 
+## Relational schema tables (verified)
+
+For ER-to-relational mapping, draw one single-row draw.io table per relation, with a bold title above it:
+- Table: `shape=table;startSize=0;container=1;collapsible=0;childLayout=tableLayout;fontSize=16;` with a child row `shape=tableRow;horizontal=0;startSize=0;...;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;` and one child cell per column: `shape=partialRectangle;html=1;whiteSpace=wrap;connectable=1;...;fontSize=16;`, 40 tall, width about `max(70, 10*len+24)`.
+- Set **`connectable=1`** on the cells. draw.io's default table cells use `connectable=0`, which means foreign-key arrows can only attach to the table's outer edge, not to a specific column.
+- Title: `text;html=1;...;align=left;fontSize=16;fontStyle=1;` placed 30px above the table. Stack the tables 130px apart, leaving room at the side for FK arrows.
+- Primary key columns: `<u>name</u>`. For a composite key, underline every part.
+- Build them with `new mxCell` and `m.add(parent|table|row, cell)` inside one update.
+- Mapping reminders: a multivalued attribute (double oval) gets its own table (owner key + value, both in the key). A composite attribute becomes its parts. A derived attribute (dashed oval) is dropped. A weak entity's key is the owner key + the partial key. An M:N relationship gets its own table; 1:N adds an FK on the N side.
+
 ## XML recipe
 
 Skeleton:
