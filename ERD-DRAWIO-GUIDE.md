@@ -30,9 +30,9 @@ This is the approved look for spacing and style. Make every diagram you create o
 | Strong entity | 110x45 | `whiteSpace=wrap;html=1;aspect=fixed;fontStyle=1;align=center;` |
 | Weak entity outer box | 134x69 (inner + 8 on each side) | `whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;strokeWidth=1;` |
 | Weak entity inner box | 118x53 | `whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;fontStyle=1;align=center;` |
-| Relationship diamond | 80x80 | `rhombus;whiteSpace=wrap;html=1;shapeInside=1;` |
-| Identifying relationship (double diamond) | 80x80 | `rhombus;double=1;whiteSpace=wrap;html=1;shapeInside=1;` (verified: renders an inner diamond) |
-| Attribute | 38 tall; one width per entity (about 120–130) | `ellipse;whiteSpace=wrap;html=1;shapeInside=1;` |
+| Relationship diamond | 80x80 | `rhombus;whiteSpace=wrap;html=1;` |
+| Identifying relationship (double diamond) | 80x80 | `rhombus;double=1;whiteSpace=wrap;html=1;` (verified: renders an inner diamond) |
+| Attribute | 38 tall; one width per entity (about 120–130) | `ellipse;whiteSpace=wrap;html=1;` |
 | Every line | n/a | `edgeStyle=none;html=1;endArrow=none;startArrow=none;` |
 | Total participation line | n/a | the same, plus `shape=link;` (draws a double line) |
 | Cardinality (1/N) | n/a | a child `edgeLabel` cell on the relationship edge, near the middle of the line. Chen ratios use only 1 and N/M; a bound like "at most 2" comes from the partial key, not a number label. |
@@ -45,7 +45,7 @@ Layout:
 
 ## EER specialization (verified)
 
-- Circle: `ellipse;whiteSpace=wrap;html=1;shapeInside=1;aspect=fixed;`, 38x38, labeled `o` (overlap) or `d` (disjoint). Center it under the superclass, halfway down to the subclasses.
+- Circle: `ellipse;whiteSpace=wrap;html=1;aspect=fixed;`, 38x38, labeled `o` (overlap) or `d` (disjoint). Center it under the superclass, halfway down to the subclasses.
 - Superclass to circle: a double line (`shape=link;`) for total specialization, a single line for partial.
 - Circle to each subclass: a straight line with a **∪ subset symbol** as a child label of the edge, so it moves with the line:
   ```js
@@ -57,6 +57,11 @@ Layout:
   Straighten the edge first (`edgeStyle=none`). The rotation assumes a straight line, so recompute it if you move the circle or a subclass.
 - **Even layout for an EER tree:** three columns 320px apart (left subclass chain, center superclass/hub chain, right subclass chain), with rows about 340px apart. Move each entity by its center, taking its outer box, inner box and attributes along, then re-run the column, diamond and line passes and re-aim the ∪ symbols. This worked well for the approved layout.
 - A superclass with a subclass tree below it can take its attributes in a **row above** it instead of a column: key first, 12px gaps, the row centered on the entity, 70px above it.
+
+## Export pitfalls (verified)
+
+- **Don't use `shapeInside=1`** on ellipses or diamonds. The editor still fits the text, but the PNG/PDF export pushes a label that doesn't fit the inner area outside the shape (e.g. "Comments" appeared under its diamond). Plain `whiteSpace=wrap` exports correctly.
+- **Keep everything at positive coordinates** (≥ 40px margin). Export with Size "Page" clips anything above or left of the page origin. Size "Diagram" avoids that, but it's safer not to place content there.
 
 ## Layout tricks (verified)
 
@@ -103,7 +108,7 @@ Strong entity   whiteSpace=wrap;html=1;aspect=fixed;fontStyle=1;align=center;
 Weak outer box  whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;strokeWidth=1;
 Weak inner box  whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;fontStyle=1;align=center;
                 (inner = outer inset by 8px on each side, e.g. outer 134x69, inner 118x53)
-Attribute       ellipse;whiteSpace=wrap;html=1;shapeInside=1;
+Attribute       ellipse;whiteSpace=wrap;html=1;
 Attribute line  edgeStyle=none;endArrow=none;startArrow=none;
 ```
 

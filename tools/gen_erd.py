@@ -29,10 +29,10 @@ ORIGIN = (40, 40)
 S_ENT = "whiteSpace=wrap;html=1;aspect=fixed;fontStyle=1;align=center;"
 S_WEAK_OUTER = "whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;strokeWidth=1;"
 S_WEAK_INNER = "whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;fontStyle=1;align=center;"
-S_ATTR = "ellipse;whiteSpace=wrap;html=1;shapeInside=1;"
+S_ATTR = "ellipse;whiteSpace=wrap;html=1;"
 S_LINE = "edgeStyle=none;html=1;endArrow=none;startArrow=none;"
-S_REL = "rhombus;whiteSpace=wrap;html=1;shapeInside=1;"  # 80x80, for relationships
-S_ID_REL = "rhombus;double=1;whiteSpace=wrap;html=1;shapeInside=1;"  # identifying relationship
+S_REL = "rhombus;whiteSpace=wrap;html=1;"  # 80x80, for relationships
+S_ID_REL = "rhombus;double=1;whiteSpace=wrap;html=1;"  # identifying relationship
 
 PK = "<u>{}</u>"
 PARTIAL = '<span style="text-decoration-line:underline;text-decoration-style:dashed;">{}</span>'
