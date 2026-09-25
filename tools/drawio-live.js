@@ -16,7 +16,7 @@ const g = [...window.__graphs][0];
 const m = g.model;
 
 // 2. Helpers.
-const cells = () => Object.values(m.cells);
+const cells = () => g.getChildCells(g.getDefaultParent()); // current page only
 const byText = t => cells().find(c => typeof c.value === 'string' && c.value.includes(t));
 const DASHED = t => `<span style="text-decoration-line:underline;text-decoration-style:dashed;">${t}</span>`;
 
@@ -61,7 +61,9 @@ function formatPass({ gap = 40, row = 44, h = 38 } = {}) {
   try {
     const ents = cells().filter(c => c.vertex && attrsOf(c).length);
     for (const ent of ents) {
-      const eg = ent.geometry, as = attrsOf(ent).sort((a, b) => a.geometry.y - b.geometry.y);
+      const eg = ent.geometry, as = attrsOf(ent);
+      if (as.every(a => a.geometry.y + a.geometry.height < eg.y)) continue; // attribute row above: leave it
+      as.sort((a, b) => /<u>|dashed/.test(b.value) - /<u>|dashed/.test(a.value) || a.geometry.y - b.geometry.y);
       const left = as[0].geometry.x < eg.x, w = Math.max(...as.map(a => a.geometry.width));
       const top = eg.y + eg.height / 2 - (as.length * row - (row - h)) / 2;
       as.forEach((a, i) => { const ng = a.geometry.clone();

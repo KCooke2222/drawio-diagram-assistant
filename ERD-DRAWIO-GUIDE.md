@@ -35,7 +35,7 @@ This is the approved look for spacing and style. Make every diagram you create o
 | Attribute | 38 tall; one width per entity (about 120–130) | `ellipse;whiteSpace=wrap;html=1;shapeInside=1;` |
 | Every line | n/a | `edgeStyle=none;html=1;endArrow=none;startArrow=none;` |
 | Total participation line | n/a | the same, plus `shape=link;` (draws a double line) |
-| Cardinality (1/N) | n/a | a child `edgeLabel` cell on the relationship edge, near the middle of the line |
+| Cardinality (1/N) | n/a | a child `edgeLabel` cell on the relationship edge, near the middle of the line. Chen ratios use only 1 and N/M; a bound like "at most 2" comes from the partial key, not a number label. |
 
 Layout:
 - The most connected entity goes in the middle as the hub, and the other entities sit around it.
@@ -133,6 +133,8 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - **EditorUi handle** (pages, actions): wrap `EditorUi.prototype` methods (`updateActionStates`, `getCurrentFile`, `isDiagramEmpty`, `updateDocumentTitle`), fire a mousemove on the canvas, and keep the instance whose `editor.graph` is your graph. Cache it as `window.__ui`.
 - Pages: `ui.pages`, `ui.currentPage.getName()`. The same graph object shows whichever page is current, so check the current page before editing. Rename silently with `g.model.execute(new RenamePage(ui, page, 'Name'))`. `ui.renamePage()` opens a dialog instead.
 - Zoom to fit: `ui.actions.get('fitWindow').funct()`.
+- Use `g.getChildCells(g.getDefaultParent())` for "all cells". It covers only the current page, whereas `Object.values(m.cells)` can include stale cells from other pages.
+- formatPass leaves an attribute row that sits above its entity alone (the superclass layout) and puts keys first in columns.
 - Adding clusters live: `g.insertVertex(parent, null, label, x, y, w, h, style)` and `g.insertEdge(parent, null, '', src, dst, style)` inside one `beginUpdate`/`endUpdate`, so it's a single undo step.
 
 ### Chrome DevTools MCP specifics (preferred when available)
