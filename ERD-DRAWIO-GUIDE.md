@@ -55,6 +55,7 @@ Layout:
   m.add(edge, s);
   ```
   Straighten the edge first (`edgeStyle=none`). The rotation assumes a straight line, so recompute it if you move the circle or a subclass.
+- **Even layout for an EER tree:** three columns 320px apart (left subclass chain, center superclass/hub chain, right subclass chain), with rows about 340px apart. Move each entity by its center, taking its outer box, inner box and attributes along, then re-run the column, diamond and line passes and re-aim the ∪ symbols. This worked well for the approved layout.
 - A superclass with a subclass tree below it can take its attributes in a **row above** it instead of a column: key first, 12px gaps, the row centered on the entity, 70px above it.
 
 ## XML recipe
