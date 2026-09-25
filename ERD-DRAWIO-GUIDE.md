@@ -66,6 +66,8 @@ For ER-to-relational mapping, draw one single-row draw.io table per relation, wi
 - Title: `text;html=1;...;align=left;fontSize=16;fontStyle=1;` placed 30px above the table. Stack the tables 130px apart, leaving room at the side for FK arrows.
 - Primary key columns: `<u>name</u>`. For a composite key, underline every part.
 - Build them with `new mxCell` and `m.add(parent|table|row, cell)` inside one update.
+- **FK arrow routing (readable, verified):** Every arrow leaves the bottom of the FK cell and drops into the gap below its table. It then runs left to its own vertical lane left of the tables (lanes 14px apart, shorter spans nearer the tables), goes up to the gap below the target table, runs right, and rises into the bottom of the PK cell. Use `edgeStyle=none` with 4 explicit points, `exitX/entryX` with `exitY=entryY=1` and `*Perimeter=0`, and `endArrow=classic`. FK arrows keep their arrowheads, unlike ER lines. Within a gap, the outgoing segments sit above the incoming ones. Several arrows into one cell get entry points spread 14px apart.
+- **Composite FK:** use one arrow for the pair. Attach it to the first column with `exitX=1` (the boundary between the two columns) and aim it at the boundary between the referenced key columns (`entryX=1` on the first key cell).
 - Mapping reminders: a multivalued attribute (double oval) gets its own table (owner key + value, both in the key). A composite attribute becomes its parts. A derived attribute (dashed oval) is dropped. A weak entity's key is the owner key + the partial key. An M:N relationship gets its own table; 1:N adds an FK on the N side.
 
 ## XML recipe
