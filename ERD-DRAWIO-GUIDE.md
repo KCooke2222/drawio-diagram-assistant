@@ -13,6 +13,7 @@ Knowledge bank for editing and generating ER diagrams in draw.io. It grows as ag
 | Partial key of weak entity (e.g. `item_number`) | **Dashed** underline, not a double underline |
 | Attribute link | Short, straight line with no arrowheads |
 | Relationship | Diamond, added after entity clusters are placed |
+| (min, max) constraint | A label `(min,max)` on each line, placed next to the entity it describes: how many relationship instances **that entity** takes part in. This is the opposite side from 1/N labels. min 0 = partial, min ≥ 1 = total; use `N` for an unlimited max |
 
 ## Layout rules
 
