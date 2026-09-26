@@ -64,6 +64,8 @@ Layout:
 - **Don't use `shapeInside=1`** on ellipses or diamonds. The editor still fits the text, but the PNG/PDF export pushes a label that doesn't fit the inner area outside the shape (e.g. "Comments" appeared under its diamond). Plain `whiteSpace=wrap` exports correctly.
 - **Keep everything at positive coordinates** (≥ 40px margin). Export with Size "Page" clips anything above or left of the page origin. Size "Diagram" avoids that, but it's safer not to place content there.
 
+- **Compiling exports into a PDF:** dark-theme PNG exports have a #121212 background. Invert them with Pillow (`ImageOps.invert`), then map values ≥ 225 to pure white. That gives black lines on white. Put each image in a simple HTML page (one `<section>` per question with `page-break-after: always`) and print it with `google-chrome --headless=new --no-pdf-header-footer --print-to-pdf=out.pdf file://...html`. No reportlab needed.
+
 ## Layout tricks (verified)
 
 - **Square layout for a chain of 4 entities (A–B–C–D):** put them at the corners (A top-left, B top-right, C bottom-right, D bottom-left), about 600 × 380 apart, with the diamonds at the midpoints of three sides. Put attribute rows above the top pair and below the bottom pair, so every relationship line is perfectly straight.
