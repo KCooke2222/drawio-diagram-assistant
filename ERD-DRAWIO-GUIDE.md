@@ -66,6 +66,7 @@ Layout:
 
 ## Layout tricks (verified)
 
+- **Square layout for a chain of 4 entities (A–B–C–D):** put them at the corners (A top-left, B top-right, C bottom-right, D bottom-left), about 600 × 380 apart, with the diamonds at the midpoints of three sides. Put attribute rows above the top pair and below the bottom pair, so every relationship line is perfectly straight.
 - **Two diamonds between the same pair of entities** (e.g. Posts and Likes between User and Post): put them on either side of the midpoint, offset about ±70px perpendicular to the line between the entities, so they don't stack.
 - **Recursive relationship:** place the diamond about 120px above the entity. Give the two lines distinct ends: `exitX=0.2;exitY=0;exitPerimeter=0` → the diamond's left corner (`entryX=0;entryY=0.5`), and `exitX=0.8` → the right corner (`entryX=1`). Put the relationship attribute above the diamond.
 - **Relationship attributes** attach to the diamond. Place them on a side with no lines.
