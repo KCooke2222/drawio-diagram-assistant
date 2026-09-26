@@ -64,7 +64,8 @@ Layout:
 - **Don't use `shapeInside=1`** on ellipses or diamonds. The editor still fits the text, but the PNG/PDF export pushes a label that doesn't fit the inner area outside the shape (e.g. "Comments" appeared under its diamond). Plain `whiteSpace=wrap` exports correctly.
 - **Keep everything at positive coordinates** (≥ 40px margin). Export with Size "Page" clips anything above or left of the page origin. Size "Diagram" avoids that, but it's safer not to place content there.
 
-- **Compiling exports into a PDF:** dark-theme PNG exports have a #121212 background. Invert them with Pillow (`ImageOps.invert`), then map values ≥ 225 to pure white. That gives black lines on white. Put each image in a simple HTML page (one `<section>` per question with `page-break-after: always`) and print it with `google-chrome --headless=new --no-pdf-header-footer --print-to-pdf=out.pdf file://...html`. No reportlab needed.
+- **Compiling exports into a PDF:** dark-theme PNG exports have a #121212 background. Invert them with Pillow (`ImageOps.invert`), then map values ≥ 225 to pure white. That gives black lines on white. Print a simple HTML page with `google-chrome --headless=new --no-pdf-header-footer --print-to-pdf=out.pdf file://...html`. No reportlab needed.
+- **Submission PDF format (approved):** keep it minimal. On page 1 only, put three plain lines in the top-left corner: `Name, NetID` / `Course.Section, Assignment N` / `Due M/D/YYYY`. Each question gets its own page with just a `Q1`…`Qn` heading and the diagram. No titles, no em dashes. Letter size, 0.6in margins, Arial 11pt. Take the name and ID from `local.md`.
 
 ## Layout tricks (verified)
 
