@@ -15,6 +15,11 @@ Knowledge bank for editing and generating ER diagrams in draw.io. It grows as ag
 | Relationship | Diamond, added after entity clusters are placed |
 | (min, max) constraint | A label `(min,max)` on each line, placed next to the entity it describes: how many relationship instances **that entity** takes part in. This is the opposite side from 1/N labels. min 0 = partial, min ≥ 1 = total; use `N` for an unlimited max |
 
+### Naming
+
+- Entities are nouns; relationships are verbs.
+- A relationship name reads left to right across the diagram: `Employee → works for → Department`, not `Employee ← employed by ← Department`. Place the subject entity on the left, or pick the verb that reads correctly for the current layout.
+
 ## Layout rules
 
 - Stack each entity's attributes in a **compact column right next to it**, key attribute first. Use a 44px row pitch and give every ellipse the same width. (`tools/gen_erd.py` and `columnLayout()` both do this.)
