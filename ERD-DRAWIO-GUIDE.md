@@ -78,6 +78,7 @@ Layout:
 - **Two diamonds between the same pair of entities** (e.g. Posts and Likes between User and Post): put them on either side of the midpoint, offset about ±70px perpendicular to the line between the entities, so they don't stack.
 - **Recursive relationship:** place the diamond about 120px above the entity. Give the two lines distinct ends: `exitX=0.2;exitY=0;exitPerimeter=0` → the diamond's left corner (`entryX=0;entryY=0.5`), and `exitX=0.8` → the right corner (`entryX=1`). Put the relationship attribute above the diamond.
 - **Relationship attributes** attach to the diamond. Place them on a side with no lines.
+- **Shared file with collaborators editing live:** a model edit can be silently reverted by a sync conflict. After an edit, wait about 10s, re-read the cells you changed, and re-apply once if they reverted. Re-read labels before acting too, since teammates rename shapes and attributes in the meantime.
 - **Never rebuild a page blindly.** The user may be drawing on it at the same time. Count the cells, or look for shapes you didn't create, before removing anything. Prefer moving and adding over delete-and-recreate.
 - **Dangling lines** (an endpoint dropped near, not on, a shape) have `source`/`target` null and a `sourcePoint`/`targetPoint`. Attach them with `m.setTerminal(edge, shape, isSource)` before formatting, or they'll float.
 - A diamond whose label is longer than about 9 characters: widen it to 110.
