@@ -79,6 +79,7 @@ Layout:
 - **Recursive relationship:** place the diamond about 120px above the entity. Give the two lines distinct ends: `exitX=0.2;exitY=0;exitPerimeter=0` → the diamond's left corner (`entryX=0;entryY=0.5`), and `exitX=0.8` → the right corner (`entryX=1`). Put the relationship attribute above the diamond.
 - **Relationship attributes** attach to the diamond. Place them on a side with no lines.
 - **Shared file with collaborators editing live:** a model edit can be silently reverted by a sync conflict. After an edit, wait about 10s, re-read the cells you changed, and re-apply once if they reverted. Re-read labels before acting too, since teammates rename shapes and attributes in the meantime.
+- **Making an existing entity weak (live):** shrink-and-center the named box to 118x53 with the inner style, insert the 134x69 outer box at the same center and move it behind (`m.add(parent, outer, parent.getIndex(inner))`), then `m.setTerminal` **every** edge (attribute and relationship) from the inner box to the outer one. Lines left on the inner box cut through the double border. Also make its identifying relationship(s) double diamonds (`double=1`) and its key attributes dashed.
 - **Never rebuild a page blindly.** The user may be drawing on it at the same time. Count the cells, or look for shapes you didn't create, before removing anything. Prefer moving and adding over delete-and-recreate.
 - **Dangling lines** (an endpoint dropped near, not on, a shape) have `source`/`target` null and a `sourcePoint`/`targetPoint`. Attach them with `m.setTerminal(edge, shape, isSource)` before formatting, or they'll float.
 - A diamond whose label is longer than about 9 characters: widen it to 110.
@@ -167,7 +168,7 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - Leave about 200px between clusters for relationship diamonds. The generator's grid cell is 420x300.
 - Google Drive connectors (where available) can't overwrite a file's contents, only rename, move or copy it. Edit live instead.
 
-- For review, read the structure with `describe()` instead of screenshots. A weak entity's outer box shows as `OUTERBOX`, and relationship lines attach to it, not to the inner named box.
+- For review, read the structure with `describe()` instead of screenshots. A weak entity's outer box shows as `OUTERBOX`. **All** its lines (relationships and attributes) attach to it, not to the inner named box.
 - After the graph-hook click, press Escape. The click can select a shape, and a later keypress would then edit it.
 - The graph-hook click has to land on empty canvas. In the full UI the left sidebar covers x < ~220, so take a screenshot first and click an empty spot beside the diagram.
 
