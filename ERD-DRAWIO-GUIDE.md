@@ -175,6 +175,7 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - The graph-hook click has to land on empty canvas. In the full UI the left sidebar covers x < ~220, so take a screenshot first and click an empty spot beside the diagram.
 
 - **EditorUi handle** (pages, actions): wrap `EditorUi.prototype` methods (`updateActionStates`, `getCurrentFile`, `isDiagramEmpty`, `updateDocumentTitle`), fire a mousemove on the canvas, and keep the instance whose `editor.graph` is your graph. Cache it as `window.__ui`.
+  If those four never fire (found 0 instances on a fresh untitled diagram), wrap **every** function on `EditorUi.prototype`, then call `g.setSelectionCell(c); g.clearSelection()` and fire a mousemove. That catches the instance reliably. Restore all wrappers afterwards.
 - Pages: `ui.pages`, `ui.currentPage.getName()`. The same graph object shows whichever page is current, so check the current page before editing. Rename silently with `g.model.execute(new RenamePage(ui, page, 'Name'))`. `ui.renamePage()` opens a dialog instead.
 - New page: `const p = ui.insertPage(null, ui.pages.length); g.model.execute(new RenamePage(ui, p, 'Name')); ui.selectPage(p);`
 - Zoom to fit: `ui.actions.get('fitWindow').funct()`.
