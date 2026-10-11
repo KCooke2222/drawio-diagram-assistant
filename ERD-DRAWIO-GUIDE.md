@@ -197,3 +197,11 @@ If the dashed HTML underline doesn't render, fall back to a short dashed line sh
 - Chrome allows one automatic download per page, then silently blocks more until the user allows "multiple downloads" for app.diagrams.net (address bar icon).
 - The glowing cursor in the tab is the extension's agent overlay, not part of the diagram. It goes away when the agent's tab group closes.
 - If the tab group closes mid-task, reopen the diagram in a new tab.
+
+## UML sequence and context diagrams (verified)
+
+- **Context model:** put the system in the center as a box labelled `«system»<br><b>Name</b>`, surround it with the external systems in the same style, and join each one to the center with a plain line (`edgeStyle=none;endArrow=none;`).
+- **Lifelines:** object `shape=umlLifeline;perimeter=lifelinePerimeter;container=1;dropTarget=0;collapsible=0;recursiveResize=0;size=40;`. Actor: add `participant=umlActor;verticalAlign=top;spacingTop=36;` and make it 30 wide.
+- **Activation bar:** a 10px-wide plain vertex centered on the lifeline's x (`perimeter=orthogonalPerimeter;targetShapes=umlLifeline;`).
+- **Messages:** free edges with `geometry.setTerminalPoint(new mxPoint(x, y), true/false)`, running from bar edge to bar edge at the same y. Call: `endArrow=block;endFill=1;verticalAlign=bottom;edgeStyle=none;`. Return: `endArrow=open;dashed=1;verticalAlign=bottom;edgeStyle=none;`. Fixed points keep the rows exact. The trade-off is that messages don't follow a lifeline you move.
+- **alt/opt/loop:** `shape=umlFrame;fillColor=none;width=50;height=25;` with value `alt`. Separate operands with a dashed free edge, and put guards as `text` cells (`[cond]`, `[else]`) just inside each operand.
